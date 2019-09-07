@@ -30,13 +30,13 @@ app.post("/api/posts", (req, res, next) => {
         title: req.body.title,
         content: req.body.content
     });
-    post.save().then(item => {
-        console.log('Save item ' + item);
+
+    post.save().then(result => {
+        res.status(201).json({
+            message: 'Post added',
+            postId: result._id
+        });
     });    
-    
-    res.status(201).json({
-        message: 'Post added'
-    });
 });
 
 app.get("/api/posts", (req, res, next) => {
