@@ -30,7 +30,10 @@ app.post("/api/posts", (req, res, next) => {
         title: req.body.title,
         content: req.body.content
     });
-    console.log(post);    
+    post.save().then(item => {
+        console.log('Save item ' + item);
+    });    
+    
     res.status(201).json({
         message: 'Post added'
     });
