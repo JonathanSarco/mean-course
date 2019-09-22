@@ -1,13 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import {
   MatCardModule,
   MatButtonModule,
   MatToolbarModule,
   MatExpansionModule,
-  MatInputModule } from '@angular/material';
+  MatInputModule, 
+  MatProgressSpinnerModule} from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -25,7 +26,7 @@ import { PostListComponent } from './posts/post-list/post-list.component';
   ],
   imports: [
     BrowserModule,
-    FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatInputModule,
@@ -33,6 +34,7 @@ import { PostListComponent } from './posts/post-list/post-list.component';
     MatButtonModule,
     MatToolbarModule,
     MatExpansionModule,
+    MatProgressSpinnerModule,
     HttpClientModule
   ],
   providers: [],
