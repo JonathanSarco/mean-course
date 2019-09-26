@@ -1,6 +1,9 @@
 const http = require('http');
 const debug = require('debug')("node-angular");
 const app = require('./backend/app');
+const config = require('./utils/config');
+
+const PORT = Number(config.PORT || 3000);
 
 const normalizePort = val => {
     var port = parseInt(val, 10);
@@ -42,7 +45,7 @@ const onListening = () => {
     debug("Listening on " + bind);     
 };
 
-const port = normalizePort(process.env.PORT || "3000");
+const port = normalizePort(PORT);
 app.set("port", port);
 
 const server = http.createServer(app);
