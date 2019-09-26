@@ -8,3 +8,4 @@ browser*
 karma*
 package-lock*
 angular.json
+.env

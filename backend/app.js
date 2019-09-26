@@ -3,11 +3,11 @@ const bodyParse = require('body-parser');
 const mongoose = require('mongoose');
 
 const postsRoutes = require('./routes/posts');
-const config = require('../utils/config');
+const config = require('./../utils/config');
 
 const app = express();
 
-mongoose.connect(config.DB_URL, {useNewUrlParser: true})
+mongoose.connect(config.DB.DB_URL, {useNewUrlParser: true})
     .then(() => {
         console.log('Conected');
     })
