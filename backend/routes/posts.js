@@ -1,20 +1,26 @@
 const express = require('express');
 const Post = require('../models/post');
-
 const router = express.Router();
 
 router.post("", (req, res, next) => {
-    const post = new Post({
-        title: req.body.title,
-        content: req.body.content
-    });
-
-    post.save().then(result => {
-        res.status(201).json({
-            message: 'Post added',
-            postId: result._id
+    if(hasValue(req.body.title) && hasValue(req.body.content)){
+        const post = new Post({
+            title: req.body.title,
+            content: req.body.content
         });
-    });    
+    
+        post.save().then(result => {
+            res.status(201).json({
+                message: 'Post added',
+                postId: result._id
+            });
+        });    
+    } else {
+        res.status(400).json({
+            message: "invalid data"
+        })
+    }
+   
 });
 
 router.put("/:id", (req, res, next) => {
@@ -46,6 +52,9 @@ router.get("/:id", (req, res, next) => {
         } else {
             res.status(404).json({message: "Post not found"});
         }
+    })
+    .catch((error) => {
+        res.status(500).json({message: error.message});
     });
 });
 
@@ -57,3 +66,10 @@ router.delete("/:id", (req, res, next) => {
 });
 
 module.exports = router;
+
+function hasValue(str){
+    if(str && str.length > 0){
+        return true;
+    }
+    return false;
+}

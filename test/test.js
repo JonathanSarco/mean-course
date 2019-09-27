@@ -60,6 +60,32 @@ describe('CRUD Operations: ', function () {
     done();
   });
 
+  it('should get an error on insert null content', (done) => {
+    let post = new Post({ title: null, content: null });
+    chai.request(url)
+      .post('/api/posts')
+      .send(post)
+      .end(function (err, res) {
+        console.log(res.body);
+        expect(res).to.have.status(400);
+        expect(res.body).to.have.property('message').to.be.equal('invalid data');
+      });
+    done();
+  });
+
+  it('should get an error on insert empty content', (done) => {
+    let post = new Post({ title: '', content: '' });
+    chai.request(url)
+      .post('/api/posts')
+      .send(post)
+      .end(function (err, res) {
+        console.log(res.body);
+        expect(res).to.have.status(400);
+        expect(res.body).to.have.property('message').to.be.equal('invalid data');
+      });
+    done();
+  });
+
   it('should return three post in the array', (done) => {
     chai.request(url)
       .get('/api/posts')
@@ -76,7 +102,7 @@ describe('CRUD Operations: ', function () {
       });
   });
 
-  it('should return one post in the array with the searchId', (done) => {
+  it('should return one post in the array with a valid id', (done) => {
     console.log(ids[1]);
 
     chai.request(url)
@@ -86,6 +112,19 @@ describe('CRUD Operations: ', function () {
 
         expect(res).to.have.status(200);
         expect(res.body).to.have.property('_id').to.be.equal(ids[1]);
+
+        done();
+      });
+  });
+
+  it('should return one post in the array with an invalid id', (done) => {
+    chai.request(url)
+      .get(`/api/posts/5d8e644728367412faf6ef5f`)
+      .end(function (err, res) {
+        console.log(res.body);
+
+        expect(res).to.have.status(404);
+        expect(res.body).to.have.property('message').to.be.equal('Post not found');
 
         done();
       });
