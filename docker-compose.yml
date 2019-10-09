@@ -1,0 +1,30 @@
+version: '3'
+
+# Define the services/containers to be run
+services:
+  database:
+    image: mongo
+    volumes:
+      - "/data/db:/data/db"
+    ports:
+      - "27017:27017"
+  app: 
+    build: 
+      context: .
+      dockerfile: ./app.dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - DB_URL=mongodb://database/meandb
+    links:
+      - database
+    depends_on:
+      - database
+  frontend: 
+    image: node
+    volumes: 
+      - "./:/usr/src/app"
+    ports: 
+      - "4200:4200" # Port mapping
+    command: > 
+      bash -c "cd /usr/src/app && npm install --only=dev && npm start"

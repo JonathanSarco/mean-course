@@ -4,3 +4,4 @@
 browser*
 package-lock*
 .env
+/dist
