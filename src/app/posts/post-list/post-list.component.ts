@@ -9,11 +9,6 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./post-list.component.css']
 })
 export class PostListComponent implements OnInit, OnDestroy {
-  // posts = [
-  //   {title: 'first post', content: 'this is the first posts'},
-  //   {title: 'second post', content: 'this is the second posts'},
-  //   {title: 'third post', content: 'this is the third posts'}
-  // ];
 
   posts: Post[] = [];
   private postsOnSub: Subscription;
